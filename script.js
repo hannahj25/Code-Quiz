@@ -65,7 +65,7 @@ function get(x) {
 function renderQuestions () {
     quiz = get("quiz");
     if (pos >= questions.length) {
-        quiz.innerHTML = "<h3>You got "+correct+" of "+questions.length+" questions correct.</h2>";
+        quiz.innerHTML = "<h3>You got "+correct+" of "+questions.length+" questions correct. <br> Your score: "+timerCount+".</h2>";
         get ("quiz-status").innerHTML = "Quiz Completed.";
         pos = 0;
         correct = 0;
@@ -106,6 +106,7 @@ function checkAnswer() {
 
     pos++;
 
+
     renderQuestions();
 }
 
@@ -116,13 +117,13 @@ function gameOver () {
 
  function startTimer () {
     timer = setInterval(function() {
-       timerElement.textContent = timerCount;
-       if (timerCount > 0) {
+        timerElement.textContent = timerCount;
+        if (timerCount > 0) {
            timerCount--;
-       } else {
+        } else {
            clearInterval(timer);
            gameOver ();
-       }
+        } 
     }, 1000)
 }; 
 
