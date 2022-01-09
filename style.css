@@ -1,9 +1,18 @@
-h2 {
+.btn-secondary {
     display: inline;
+    font-size: 30px;
+}
+
+.scoreboard {
+    position: fixed;
+}
+
+li {
+    font-size: 30px;
 }
 
 .timer {
-    float: right;
+    text-align: center;
 }
 
 .timer-count {

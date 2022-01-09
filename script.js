@@ -8,6 +8,9 @@ var newDiv = document.createElement("div");
 var form = document.createElement("form");
 var input = document.createElement("input");
 var submit = document.createElement("button");
+var viewScoreboard = document.querySelector(".view-scoreboard");
+var scoreboard = document.querySelector(".scoreboard")
+
 
 input.type = "text;";
 input.name = "user-initial";
@@ -20,7 +23,7 @@ newDiv.style.textAlign="center";
 form.appendChild(input);
 form.appendChild(submit);
 
-
+scoreboard.style.display="none";
 
 var questions = [
     { 
@@ -156,7 +159,7 @@ function gameOver () {
            timerCount--;
         } else {
            clearInterval(timer);
-           gameOver ();
+           toggleScoreboard()
         } 
     }, 1000)
 }; 
@@ -164,4 +167,16 @@ function gameOver () {
 
 
  startButton.addEventListener("click", startQuiz);
+
+function toggleScoreboard() {
+    if (scoreboard.style.display === "none") {
+        viewScoreboard.textContent="Hide Scoreboard";
+        scoreboard.style.display = "block";
+    } else {
+        viewScoreboard.textContent="View Scoreboard";
+        scoreboard.style.display = "none";
+    };
+}
+
+ viewScoreboard.addEventListener("click", toggleScoreboard);
 

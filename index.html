@@ -10,13 +10,14 @@
 </head>
 
 <body>
-    <section class ="details">
-        <h2><a href ="">View highscores</a></h2>
-        <div class="timer">
-          <h2>Time left:</h2>
-          <div class="timer-count">60</div>
-        </div>
-    </section>
+    <h2><button type="button" class="btn btn-secondary view-scoreboard">View Scoreboard</button></h2>
+     <div class="scoreboard">
+        <ul class="list-group">
+            <li class="list-group-item">TA: 45</li>
+            <li class="list-group-item">HP: 39</li>
+            <li class="list-group-item">SM: 32</li>
+          </ul>
+     </div>  
     
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
@@ -28,6 +29,11 @@
     <h3 id="quiz-status"></h3>
     <div id="quiz"></div>
     </div>
+    <br>
+    <div class="timer">
+        <h2>Time left:</h2>
+        <div class="timer-count">60</div>
+      </div>
 
   
     <script src="script.js"></script>
