@@ -11,3 +11,12 @@ h2 {
     font-size: 30px;
     font-weight: bold;
 }
+
+.quiz {
+    display: block;
+    text-align: center;
+}
+
+h3 {
+    margin: 10px;
+}
