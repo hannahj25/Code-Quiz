@@ -3,13 +3,12 @@ var timerElement = document.querySelector(".timer-count");
 var pos = 0
 var correct = 0
 var quiz, quizStatus, question, choice, choices, chA, chB, chC, chD;
+var answerFeedback = document.createElement("p");
 var newDiv = document.createElement("div");
 var form = document.createElement("form");
 var input = document.createElement("input");
-var inputLabel = document.createElement("label");
 var submit = document.createElement("button");
 
-inputLabel.for = "user-initial";
 input.type = "text;";
 input.name = "user-initial";
 input.id = "user-initial";
@@ -18,7 +17,6 @@ submit.textContent = "Submit";
 
 document.getElementsByTagName('body')[0].appendChild(newDiv);
 newDiv.style.textAlign="center";
-form.appendChild(inputLabel);
 form.appendChild(input);
 form.appendChild(submit);
 
@@ -75,19 +73,28 @@ timerCount = 60;
  function startQuiz() {
     startButton.disabled = true;
     startTimer ();
-    renderQuestions ();
+    playQuiz ();
 }; 
 
 function get(x) {
     return document.getElementById(x);
 };
 
-function renderQuestions () {
+function playQuiz () {
     quiz = get("quiz");
     if (pos >= questions.length) {
-        quiz.innerHTML = "<h3>You got "+correct+" of "+questions.length+" questions correct. <br> Your score: "+timerCount+". <br> Enter initials below to save your score. </h2>";
+        score = timerCount;
+        quiz.innerHTML = "<h3>You got "+correct+" of "+questions.length+" questions correct. <br> Your score: "+score+". <br> Enter initials below to save your score. </h2>";
         get ("quiz-status").innerHTML = "Quiz Completed.";
         newDiv.appendChild(form);
+        submit.addEventListener("click", function() {
+            if (input.value === "") {
+                window.alert("Field cannot be left blank!");
+            } else {
+                localStorage.setItem("Initials:", input.value);
+                localStorage.setItem("Score:", score);
+            }
+        })
         pos = 0;
         correct = 0;
         return false;
@@ -118,17 +125,23 @@ function checkAnswer() {
         }
     }
     if (choice == questions[pos].answer) {
-        window.alert("Correct!");
+        //window.alert("Correct!");
+        newDiv.appendChild(answerFeedback);
+        answerFeedback.textContent = "Previous answer was correct!"
         correct++;
     } else {
-        window.alert("Incorrect!");
+        //window.alert("Incorrect!");
+        newDiv.appendChild(answerFeedback);
+        answerFeedback.textContent = "Previous answer was incorrect!"
         timerCount -= 10;
+
+        
     }
 
     pos++;
 
 
-    renderQuestions();
+    playQuiz();
 }
 
 function gameOver () {
@@ -151,3 +164,4 @@ function gameOver () {
 
 
  startButton.addEventListener("click", startQuiz);
+
