@@ -6,7 +6,6 @@ var quiz, quizStatus, question, choice, choices, chA, chB, chC, chD;
 
 
 
-
 var questions = [
     { 
         question: "Which coding language makes up the 'skeleton' of a webpage?",
@@ -51,8 +50,9 @@ var questions = [
 
 ];
 
+timerCount = 60;
+
  function startQuiz() {
-    timerCount = 60;
     startButton.disabled = true;
     startTimer ();
     renderQuestions ();
@@ -81,10 +81,10 @@ function renderQuestions () {
 
     quiz.innerHTML = "<h3>"+question+"</h3>";
 
-    quiz.innerHTML += "<label> <input type='radio; name='choices' value='A'> "+chA+"</label><br>";
-    quiz.innerHTML += "<label> <input type='radio; name='choices' value='B'> "+chB+"</label><br>";
-    quiz.innerHTML += "<label> <input type='radio; name='choices' value='C'> "+chC+"</label><br>";
-    quiz.innerHTML += "<label> <input type='radio; name='choices' value='D'> "+chD+"</label><br>";
+    quiz.innerHTML += "<label> <input type='radio' name='choices' value='A'> "+chA+"</label><br>";
+    quiz.innerHTML += "<label> <input type='radio' name='choices' value='B'> "+chB+"</label><br>";
+    quiz.innerHTML += "<label> <input type='radio' name='choices' value='C'> "+chC+"</label><br>";
+    quiz.innerHTML += "<label> <input type='radio' name='choices' value='D'> "+chD+"</label><br>";
     quiz.innerHTML += "<button onclick='checkAnswer() ' > Submit Answer</button>";
 
 };
@@ -99,6 +99,9 @@ function checkAnswer() {
     if (choice == questions[pos].answer) {
         window.alert("Correct!");
         correct++;
+    } else {
+        window.alert("Incorrect!");
+        timerCount -= 10;
     }
 
     pos++;
