@@ -3,6 +3,24 @@ var timerElement = document.querySelector(".timer-count");
 var pos = 0
 var correct = 0
 var quiz, quizStatus, question, choice, choices, chA, chB, chC, chD;
+var newDiv = document.createElement("div");
+var form = document.createElement("form");
+var input = document.createElement("input");
+var inputLabel = document.createElement("label");
+var submit = document.createElement("button");
+
+inputLabel.for = "user-initial";
+input.type = "text;";
+input.name = "user-initial";
+input.id = "user-initial";
+submit.type = "submit";
+submit.textContent = "Submit";
+
+document.getElementsByTagName('body')[0].appendChild(newDiv);
+newDiv.style.textAlign="center";
+form.appendChild(inputLabel);
+form.appendChild(input);
+form.appendChild(submit);
 
 
 
@@ -50,6 +68,8 @@ var questions = [
 
 ];
 
+
+
 timerCount = 60;
 
  function startQuiz() {
@@ -65,8 +85,9 @@ function get(x) {
 function renderQuestions () {
     quiz = get("quiz");
     if (pos >= questions.length) {
-        quiz.innerHTML = "<h3>You got "+correct+" of "+questions.length+" questions correct. <br> Your score: "+timerCount+".</h2>";
+        quiz.innerHTML = "<h3>You got "+correct+" of "+questions.length+" questions correct. <br> Your score: "+timerCount+". <br> Enter initials below to save your score. </h2>";
         get ("quiz-status").innerHTML = "Quiz Completed.";
+        newDiv.appendChild(form);
         pos = 0;
         correct = 0;
         return false;
