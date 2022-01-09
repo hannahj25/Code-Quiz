@@ -2,7 +2,7 @@ var startButton = document.querySelector(".start-button");
 var timerElement = document.querySelector(".timer-count");
 var pos = 0
 var correct = 0
-var quiz, quizStatus, nn, choice, choices, chA, chB, chC, chD;
+var quiz, quizStatus, question, choice, choices, chA, chB, chC, chD;
 
 
 
@@ -14,7 +14,7 @@ var questions = [
         b: "CSS",
         c: "Javascript",
         d: "jQuery",
-        correctAnswer: "A"
+        answer: "A"
     },
     {
         question: "Which is NOT a commonly used data type in Javascript?",
@@ -22,7 +22,7 @@ var questions = [
         b: "Function",
         c: "Boolean",
         d: "Number",
-        correctAnswer: "B"
+        answer: "B"
     },
     {
         question: "What does API stand for?",
@@ -30,15 +30,15 @@ var questions = [
         b: "Application Powered Integration",
         c: "Application Programming Interface", 
         d: "Average Programmer Intellect",
-        correctAnswer: "C"
+        answer: "C"
     },
     {
         question: "Which tag is used to define a list item in HTML?",
-        a: "<ul>", 
-        b: "<li>",
-        c: "<l>",
-        d: "<item>",
-        correctAnswer: "B"
+        a: "ul", 
+        b: "li",
+        c: "l",
+        d: "item",
+        answer: "B"
     },
     {
         question: "Within which part of a HTML document do we link a CSS stylesheet?",
@@ -46,17 +46,17 @@ var questions = [
         b: "Style", 
         c: "Main", 
         d: "Head",
-        correctAnswer: "D"
+        answer: "D"
     }, 
 
 ];
 
-/* function startQuiz() {
+ function startQuiz() {
     timerCount = 60;
     startButton.disabled = true;
     startTimer ();
     renderQuestions ();
-}; */
+}; 
 
 function get(x) {
     return document.getElementById(x);
@@ -66,12 +66,12 @@ function renderQuestions () {
     quiz = get("quiz");
     if (pos >= questions.length) {
         quiz.innerHTML = "<h3>You got "+correct+" of "+questions.length+" questions correct.</h2>";
-        get ("quizStatus").innerHTML = "Quiz Completed.";
+        get ("quiz-status").innerHTML = "Quiz Completed.";
         pos = 0;
         correct = 0;
         return false;
     }
-    get("quizStatus").innerHTML = "Question "+(pos+1)+" of "+questions.length;
+    get("quiz-status").innerHTML = "Question "+(pos+1)+" of "+questions.length;
 
     question = questions[pos].question;
     chA = questions[pos].a;
@@ -97,6 +97,7 @@ function checkAnswer() {
         }
     }
     if (choice == questions[pos].answer) {
+        window.alert("Correct!");
         correct++;
     }
 
@@ -105,19 +106,23 @@ function checkAnswer() {
     renderQuestions();
 }
 
-window.addEventListener("load", renderQuestions);
+function gameOver () {
+    window.alert("Time Up!");
+}
 
-/* function startTimer () {
+
+ function startTimer () {
     timer = setInterval(function() {
        timerElement.textContent = timerCount;
        if (timerCount > 0) {
            timerCount--;
        } else {
            clearInterval(timer);
+           gameOver ();
        }
     }, 1000)
-}; */
+}; 
 
 
 
-// startButton.addEventListener("click", startQuiz);
+ startButton.addEventListener("click", startQuiz);
