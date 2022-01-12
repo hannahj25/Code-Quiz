@@ -190,8 +190,8 @@ function youLose () {
     clearInterval(timer);
     timerElement.style.display="none";
     timerText.style.display="none";
-    quiz.innerHTML = "<h3>You got "+correct+" of "+questions.length+" questions correct. <br> Your score: "+score+". </h2>";
-    get ("quiz-status").innerHTML = "Oh dear!";
+    quiz.innerHTML = "<h3>You got "+correct+" of "+questions.length+" questions correct. </h2>";
+    get ("quiz-status").innerHTML = "Time Up!";
 
 }
 
