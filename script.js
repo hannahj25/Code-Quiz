@@ -1,5 +1,6 @@
 var startButton = document.querySelector(".start-button");
 var timerElement = document.querySelector(".timer-count");
+var timerText = document.querySelector(".timer-text");
 var pos = 0
 var correct = 0
 var quiz, quizStatus, question, choice, choices, chA, chB, chC, chD;
@@ -86,16 +87,25 @@ function get(x) {
 function playQuiz () {
     quiz = get("quiz");
     if (pos >= questions.length) {
+        timerElement.style.display="none";
+        timerText.style.display="none";
         score = timerCount;
         quiz.innerHTML = "<h3>You got "+correct+" of "+questions.length+" questions correct. <br> Your score: "+score+". <br> Enter initials below to save your score. </h2>";
         get ("quiz-status").innerHTML = "Quiz Completed.";
         newDiv.appendChild(form);
-        submit.addEventListener("click", function() {
+        submit.addEventListener("click", function(event) {
+            event.preventDefault()
             if (input.value === "") {
                 window.alert("Field cannot be left blank!");
             } else {
-                localStorage.setItem("Initials:", input.value);
-                localStorage.setItem("Score:", score);
+                var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+                highScores.push({"Initials": input.value, "Score": score});
+                localStorage.setItem("highScores", JSON.stringify(highScores));
+               // var userScore = document.createElement("li");
+               // userScore.textContent = input.value + ": " + score;
+                //userScore.classList.add("list-group-item")
+                //document.getElementsByTagName('ul')[0].appendChild(userScore);
+                gameOver()
             }
         })
         pos = 0;
@@ -128,12 +138,10 @@ function checkAnswer() {
         }
     }
     if (choice == questions[pos].answer) {
-        //window.alert("Correct!");
         newDiv.appendChild(answerFeedback);
         answerFeedback.textContent = "Previous answer was correct!"
         correct++;
     } else {
-        //window.alert("Incorrect!");
         newDiv.appendChild(answerFeedback);
         answerFeedback.textContent = "Previous answer was incorrect!"
         timerCount -= 10;
@@ -148,7 +156,8 @@ function checkAnswer() {
 }
 
 function gameOver () {
-    window.alert("Time Up!");
+    startButton.disabled = false;
+    toggleScoreboard();
 }
 
 
@@ -157,9 +166,9 @@ function gameOver () {
         timerElement.textContent = timerCount;
         if (timerCount > 0) {
            timerCount--;
-        } else {
-           clearInterval(timer);
-           toggleScoreboard()
+        } else if (timerCount = 0) {
+            gameOver();
+            clearInterval(timer);
         } 
     }, 1000)
 }; 
@@ -172,7 +181,15 @@ function toggleScoreboard() {
     if (scoreboard.style.display === "none") {
         viewScoreboard.textContent="Hide Scoreboard";
         scoreboard.style.display = "block";
-    } else {
+        var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+        document.getElementsByTagName('ul')[0].innerHTML="";
+        for (const element of highScores) {
+            var userScore = document.createElement("li");
+                userScore.textContent = element.Initials + ": " + element.Score;
+                userScore.classList.add("list-group-item");
+                document.getElementsByTagName('ul')[0].appendChild(userScore);
+          }
+    } else if (scoreboard.style.display === "block") {
         viewScoreboard.textContent="View Scoreboard";
         scoreboard.style.display = "none";
     };

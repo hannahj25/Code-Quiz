@@ -13,12 +13,14 @@ li {
 
 .timer {
     text-align: center;
+    color: red;
 }
 
 .timer-count {
     text-align: center;
     font-size: 30px;
     font-weight: bold;
+    color: red;
 }
 
 #quiz {
