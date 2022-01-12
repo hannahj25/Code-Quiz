@@ -165,7 +165,7 @@ function gameOver () {
     clearInterval(timer);
     timerElement.style.display="none";
     timerText.style.display="none";
-    quiz.innerHTML = "<h3>You got "+correct+" of "+questions.length+" questions correct. <br> Your score: "+score+". <br> Enter initials below to save your score. </h2>";
+    quiz.innerHTML = "<h3>You got "+correct+" of "+questions.length+" questions correct. <br> Your score: "+score+". <br> Enter initials below to save your score to the scoreboard. </h2>";
     get ("quiz-status").innerHTML = "Quiz Completed.";
     newDiv.style.display="block";
     // Appends form and input so user can input initials to save score
