@@ -26,8 +26,10 @@ newDiv.style.textAlign="center";
 form.appendChild(input);
 form.appendChild(submit);
 
-// Sets scoreboard to default as hidden
+// Sets scoreboard and timer to default as hidden
 scoreboard.style.display="none";
+timerElement.style.display="none";
+timerText.style.display="none";
 
 // Creates an array containing the quiz's questions, possible choices, and defines correct answer
 // TO-DO: Add more/better questions
@@ -76,13 +78,13 @@ var questions = [
 ];
 
 
-// Sets timer to start at 60 seconds
-timerCount = 60;
-
 // Starts timer and quiz
 // TO-DO: this function is un-needed? can go inside playQuiz function?
 function startQuiz() {
     startButton.disabled = true;
+    timerElement.style.display="block";
+    timerText.style.display="block";
+    timerCount = 60;
     startTimer ();
     playQuiz ();
 }; 
@@ -93,7 +95,7 @@ function get(x) {
 };
 
 // Runs the quiz
-function playQuiz () {
+function playQuiz () {  
     newDiv.style.display="none";
     quiz = get("quiz");
     // Sets position and correct answers to 0. Calls gameOver function when all Q's are answered
@@ -154,9 +156,9 @@ function checkAnswer() {
 function gameOver () {
     startButton.disabled = false;
     startButton.textContent="Play Quiz Again!"
+    score = timerCount;
     timerElement.style.display="none";
     timerText.style.display="none";
-    score = timerCount;
     quiz.innerHTML = "<h3>You got "+correct+" of "+questions.length+" questions correct. <br> Your score: "+score+". <br> Enter initials below to save your score. </h2>";
     get ("quiz-status").innerHTML = "Quiz Completed.";
     newDiv.style.display="block";
@@ -183,8 +185,7 @@ function startTimer () {
            timerCount--;
         } else if (timerCount = 0) {
             //TO-DO: why isn't gameOver function working on timerCount = 0??
-            gameOver();
-            clearInterval(timer);
+           gameOver();
         } 
     }, 1000)
 }; 
