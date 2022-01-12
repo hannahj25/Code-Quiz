@@ -1,16 +1,20 @@
+/* Styles scoreboard section */
+#quiz-scores {
+    margin-top: 20px;
+    margin-left: 20px;
+
+}
+
 .btn-secondary {
-    display: inline;
+    text-align: center;
     font-size: 30px;
 }
 
-.scoreboard {
-    position: fixed;
-}
-
-li {
+.scoreboard-item {
     font-size: 30px;
 }
 
+/* Styles timer */
 .timer {
     text-align: center;
     color: red;
@@ -23,11 +27,14 @@ li {
     color: red;
 }
 
+/* Styles quiz div and text */
 #quiz {
     display: block;
     text-align: center;
+    margin-bottom: 50px;
 }
 
 #quiz-status {
     text-align: center;
 }
+
