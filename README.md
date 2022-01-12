@@ -15,9 +15,11 @@
 
  ## Future considerations
  
- Add more and better questions!
+ Add more and better questions! Depending how many, make timer longer.
 
- There is an issue where the quiz still runs after the timer reaches 0, meaning users can continue to answer questions (they will get a negative score if they answer incorrectly after timer is 0). I coded the gameOver function to be called when the timeCount is 0 but it doesn't work, so I want to fix that.
+ There is a delay on the timer starting after the quiz displays; the best workaround I could find for now was having my timer text display (from the HTML) as 60, but set my actual timer as 59. So it shows 60, delays, then shows 59 and counts down from there. Not perfect as on 'Play Again' it will then first show whatever time was remaining after the prior attempt at the quiz before counting down from 59.
+
+ I would like to modify the scoring system so points are also added for each correct answer.
 
  The overall styling could be a lot nicer. Bootstrap's modal component may be a better option for displaying the scoreboard.
 

@@ -21,10 +21,15 @@ input.name = "user-initial";
 input.id = "user-initial";
 submit.type = "submit";
 submit.textContent = "Submit";
+submit.classList.add("btn");
+submit.classList.add("btn-success");
+
 document.getElementsByTagName('main')[0].appendChild(newDiv);
 newDiv.style.textAlign="center";
 form.appendChild(input);
 form.appendChild(submit);
+
+var timer;
 
 // Sets scoreboard and timer to default as hidden
 scoreboard.style.display="none";
@@ -82,9 +87,9 @@ var questions = [
 // TO-DO: this function is un-needed? can go inside playQuiz function?
 function startQuiz() {
     startButton.disabled = true;
+    timerCount = 59;
     timerElement.style.display="block";
     timerText.style.display="block";
-    timerCount = 60;
     startTimer ();
     playQuiz ();
 }; 
@@ -157,6 +162,7 @@ function gameOver () {
     startButton.disabled = false;
     startButton.textContent="Play Quiz Again!"
     score = timerCount;
+    clearInterval(timer);
     timerElement.style.display="none";
     timerText.style.display="none";
     quiz.innerHTML = "<h3>You got "+correct+" of "+questions.length+" questions correct. <br> Your score: "+score+". <br> Enter initials below to save your score. </h2>";
@@ -177,15 +183,26 @@ function gameOver () {
     })
 }
 
+function youLose () {
+    startButton.disabled = false;
+    startButton.textContent="Play Quiz Again!"
+    score = timerCount;
+    clearInterval(timer);
+    timerElement.style.display="none";
+    timerText.style.display="none";
+    quiz.innerHTML = "<h3>You got "+correct+" of "+questions.length+" questions correct. <br> Your score: "+score+". </h2>";
+    get ("quiz-status").innerHTML = "Oh dear!";
+
+}
+
 // Runs timer
 function startTimer () {
     timer = setInterval(function() {
         timerElement.textContent = timerCount;
         if (timerCount > 0) {
            timerCount--;
-        } else if (timerCount = 0) {
-            //TO-DO: why isn't gameOver function working on timerCount = 0??
-           gameOver();
+        } else if (timerCount === 0) {
+           youLose();
         } 
     }, 1000)
 }; 
